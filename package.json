@@ -4,7 +4,8 @@
   "description": "Registartion form for rock-n-mob music party",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --mode development --port 3000 --open",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -12,5 +13,18 @@
   },
   "author": "Konstantin Niukhtilin costa.n.work@yandex.ru",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/CostaN/rock-n-mob-music-party#readme"
+  "homepage": "https://bitbucket.org/CostaN/rock-n-mob-music-party#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "path": "^0.12.7",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  }
 }
