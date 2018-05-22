@@ -1,5 +1,6 @@
 let path = require('path');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.js',
@@ -11,8 +12,23 @@ module.exports = {
         publicPath: 'dist/'
     },
     devServer: {
+        host: 'localhost',
+        port: 3000,
+        hot: true,
+        open: true,
         //ошибка в коде отображается на черном фоне поверх всего
-        overlay: true
+        overlay: true,
+        //для одностранчных приложений со всои роутингом
+        historyApiFallback: true,
+        //задает папку из которой брать статику (по умолчанию из текущей)
+        //contentBase: path.resolve(__dirname, './dist'),
+        //все пути, которые не найдены у нас направлялись на порт 3001
+        // proxy: {
+        //     "*": {
+        //         target: "http://localhost:3001",
+        //         secure: false
+        //     }
+        // }
     },
     module: {
         rules: [
@@ -36,7 +52,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('style.css')
+        new ExtractTextPlugin('style.css'),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devtool: process.argv.indexOf('production') !== -1 ? 'source-map' : 'eval-source-map'
 };

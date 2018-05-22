@@ -1,4 +1,15 @@
 import './css/style.css'
-import test from './some'
-test.test1();
-test.test2();
+import React, {Component} from 'react'
+import ReactDom from 'react-dom'
+import MyRouter from './route'
+
+class App extends Component {
+
+    render() {
+        return(
+            <MyRouter/>
+        )
+    }
+}
+
+ReactDom.render(<App/>, document.getElementById('app'))
