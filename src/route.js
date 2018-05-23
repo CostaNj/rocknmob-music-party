@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {BrowserRouter, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter, Route } from 'react-router-dom'
 import {Enter, Registration} from './components'
 
 export default class MyRouter extends Component {
@@ -10,7 +10,6 @@ export default class MyRouter extends Component {
                    <div>
                        <Route exact path="/registration" component={Registration}/>
                        <Route exact path="/" component={Enter}/>
-                       <Redirect from="/" to="/registration"/>
                    </div>
                </BrowserRouter>
            </div>

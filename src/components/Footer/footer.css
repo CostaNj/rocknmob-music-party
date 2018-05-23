@@ -1,0 +1,79 @@
+.footer {
+    padding-top: 80px;
+    width: 100%;
+    background:black;
+    background: linear-gradient(to top, rgb(44,44,44), rgb(0,0,0));
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+.hgLogo {
+    margin: 10px;
+}
+
+.hgLogoImg {
+    height: 60px;
+    width: auto;
+    margin: 10px;
+}
+
+.socialLinks {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+
+.socialLogo {
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+
+}
+
+.socialLogo:hover {
+    background-color: rgba(241,104,37, 0.4);
+}
+
+.socialLogoVk {
+    background: url("./img/vk.png") no-repeat center center;
+    background-size: 80%;
+}
+
+.socialLogoFacebook {
+    background: url("./img/facebook.png") no-repeat center center;
+    background-size: 80%;
+}
+
+.socialLogoYoutube {
+    background: url("./img/youtube.png") no-repeat center center;
+    background-size: 80%;
+}
+
+.socialLogoInstagram {
+    background: url("./img/instagram.png") no-repeat center center;
+    background-size: 70%;
+}
+
+.socialLogoTwitter {
+    background: url("./img/twitter.png") no-repeat center center;
+    background-size: 80%;
+}

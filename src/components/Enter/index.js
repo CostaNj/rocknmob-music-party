@@ -1,1 +1,1 @@
-export {Enter} from './Enter'
+export {EnterWithRouter as Enter} from './Enter'
