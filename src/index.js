@@ -4,7 +4,7 @@ import ReactDom from 'react-dom'
 import MyRouter from './route'
 import {Footer} from './components'
 import './app.css';
-import logo from './res/img/rocknmobjam_3.1.png'
+import logo from './res/img/soon.jpg'
 
 class App extends Component {
 

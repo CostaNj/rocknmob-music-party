@@ -4,33 +4,29 @@ import socketIOClient from 'socket.io-client'
 export class Registration extends Component{
     constructor() {
         super();
-
         this.state = {
             endpoint: "http://localhost:3001",
-            color: 'white'
+            data: []
         };
+
+        this.socket = socketIOClient.connect('http://localhost:3001');
     }
 
     componentDidMount() {
-        let socket = socketIOClient.connect('http://localhost:3001');
-        socket.on('change color', (color) => {
-            console.log('change');
-            this.setState({ color})
-        })
+        this.socket.on('getData', (data) => {
+            console.log('data: ', data);
+        });
     }
 
-
-    setColor = (color) => {
-        let socket = socketIOClient.connect('http://localhost:3001');
-        socket.emit('change color', color);
+    addTrack = (info) => {
+        this.socket.emit('addTrack', info);
     };
 
     render() {
         return(
             <div style={{backgroundColor: this.state.color}}>
                 <h1>Registration</h1>
-                <button onClick={() => this.setColor('blue')}>Blue</button>
-                <button onClick={() => this.setColor('red')}>Red</button>
+                <button onClick={() => this.addTrack('test track info')}>addTrack</button>
             </div>
         )
     }

@@ -1,0 +1,39 @@
+.loginFrame {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: white;
+}
+
+.rules {
+    width: 70%;
+    text-align: justify;
+    padding: 15px;
+}
+
+.rules h3, h4, h5 {
+    text-align: center;
+}
+
+.importantText {
+    color: red;
+    font-weight: bold;
+}
+
+.vkAuthSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .checkBoxContainer {
+        text-align: center;
+    }
+    .rules {
+        width: 100%;
+        text-align: left;
+    }
+}

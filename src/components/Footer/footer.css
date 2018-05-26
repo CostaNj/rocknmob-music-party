@@ -4,7 +4,6 @@
     background:black;
     background: linear-gradient(to top, rgb(44,44,44), rgb(0,0,0));
     display: flex;
-    position: fixed;
     bottom: 0;
     flex-direction: row;
     flex-wrap: wrap;
