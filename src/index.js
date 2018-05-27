@@ -3,6 +3,8 @@ import React, {Component} from 'react'
 import ReactDom from 'react-dom'
 import MyRouter from './route'
 import {Layout} from './layout'
+import 'bootstrap/dist/css/bootstrap.css';
+
 class App extends Component {
 
     render() {
