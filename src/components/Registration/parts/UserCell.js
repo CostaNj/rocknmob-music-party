@@ -2,7 +2,7 @@ import React, { PureComponent} from 'react'
 
 export class UserCell extends PureComponent {
     render() {
-        const {userInfo, reserved } = this.props;
+        const {userInfo, reserved} = this.props;
         let url = userInfo && userInfo.uid ? `https://vk.com/id${userInfo.uid}` : 'unknown';
         return (
             <td onClick={this.click} className={reserved ? "reservedCell" : "unreservedCell"}>
@@ -12,6 +12,11 @@ export class UserCell extends PureComponent {
     }
 
     click = () => {
-        this.props.socket.emit('register', 'click')
+        const {socket, reserved, trackId, type, userInfo } = this.props;
+        let myId = 124;
+        reserved ?
+            console.log('deleteParticipation') :
+            socket.emit('takePart', {partytrackId: trackId, type, partyuserId: myId});
     }
+
 }

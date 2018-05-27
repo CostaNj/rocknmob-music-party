@@ -51,13 +51,27 @@ export class TrackRow extends PureComponent {
                   let newCell = '';
                   rowData.partyusers.forEach((user)=>{
                       if(get(user, 'pivotType', -1) === type.typeNumber) {
-                          newCell = <UserCell socket={socket} key={`${user.id}_th`} userInfo={user} reserved/>;
+                          newCell =
+                              <UserCell
+                                socket={socket}
+                                key={`${user.id}_th`}
+                                userInfo={user}
+                                reserved
+                                trackId={rowData.id}
+                                type = {type.typeNumber}
+                              />;
                       }
                   });
                   if(newCell) {
                       return newCell;
                   }
-                  return (<UserCell socket={socket} key={`${type.typeRole}_th`}/>)
+                  return (
+                      <UserCell
+                          socket={socket}
+                          key={`${type.typeRole}_th`}
+                          trackId={rowData.id}
+                          type = {type.typeNumber}
+                      />)
                 })}
             </tr>
         );
