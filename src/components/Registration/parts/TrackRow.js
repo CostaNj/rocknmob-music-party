@@ -11,20 +11,19 @@ export class TrackRow extends PureComponent {
                 <td>{index + 1}</td>
                 <td>{rowData.name}</td>
                 {types.map((type, index)=>{
-                  let newUser = null;
+                  let currentParticipation = null;
                   rowData.participations.forEach((participation)=>{
                       if(get(participation, 'type', -1) === type.typeNumber) {
-                          newUser = participation.user;
+                          currentParticipation = participation;
                       }
                   });
                   return (
                       <UserCell
-                          userInfo={newUser}
-                          reserved={!!newUser}
+                          participation={currentParticipation}
                           socket={socket}
                           key={`${type.typeRole}_th`}
                           trackId={rowData.id}
-                          type = {type.typeNumber}
+                          type={type.typeNumber}
                       />)
                 })}
             </tr>
