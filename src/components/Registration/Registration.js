@@ -25,7 +25,7 @@ export class Registration extends Component {
 
     addTrack = (trackTitle) => {
         if(trackTitle !== '') {
-            this.socket.emit('addTrack', {owner: 123, name: trackTitle});
+            this.socket.emit('addTrack', {ownerId: 4, name: trackTitle});
         }
     };
 

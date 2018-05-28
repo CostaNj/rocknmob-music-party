@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { TrackRow } from './TrackRow'
 import {Table} from 'reactstrap'
+import {types} from '../../../constants/types'
+
 export class RegistrationTable extends Component {
     render() {
         const {data, socket} = this.props;
@@ -13,13 +15,7 @@ export class RegistrationTable extends Component {
                         <tr>
                             <th>#</th>
                             <th className="headerTable">Трек</th>
-                            <th className="headerTable">Вокал1</th>
-                            <th className="headerTable">Вокал2</th>
-                            <th className="headerTable">Гитара1</th>
-                            <th className="headerTable">Гитара2</th>
-                            <th className="headerTable">Бас</th>
-                            <th className="headerTable">Ударные</th>
-                            <th className="headerTable">Клавиши</th>
+                            {types.map((type)=> <th key={`${type.typeRole}_headerTable`} className="headerTable">{type.typeHeader}</th>)}
                         </tr>
                     </thead>
                     <tbody>
