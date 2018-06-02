@@ -1,23 +1,30 @@
-import React, { PureComponent} from 'react'
+import React, {PureComponent} from 'react'
 import get from 'lodash/get'
 
 export class UserCell extends PureComponent {
     render() {
-        const {participation} = this.props;
-        let uid = get(participation, 'user.uid', '');
+        const {participation, currentUser} = this.props;
+        let currentCellUid = get(participation, 'user.uid', '');
+        let isMyParticipation = currentUser.id.toString() === currentCellUid.toString();
         let fio = get(participation, 'user.fio', '');
         return (
-            <td onClick={this.click} className={participation ? "reservedCell" : "unreservedCell"}>
-                {participation ? <a href={`https://vk.com/id${uid}`} target="_blank">{fio}</a> : 'Записаться'}
+            <td onClick={this.click}
+                className={participation ? (isMyParticipation ? "myReservedCell" : "reservedCell") : "unreservedCell"}>
+                {participation ?
+                    (isMyParticipation ? <div>{fio}</div> : <a href={`https://vk.com/id${currentCellUid}`} target="_blank">{fio}</a>)
+                    : 'Записаться'
+                }
             </td>
         );
     }
 
     click = () => {
-        const {socket, participation, trackId, type } = this.props;
+        const {socket, participation, trackId, type, currentUser} = this.props;
+        let currentCellUid = get(participation, 'user.uid', '');
+        let isMyParticipation = currentUser.id.toString() === currentCellUid.toString();
         participation ?
-            socket.emit('deleteParticipation', participation.id) :
-            socket.emit('takePart', {partytrackId: trackId, type });
+            (isMyParticipation ? socket.emit('deleteParticipation', participation.id) : null) :
+            socket.emit('takePart', {partytrackId: trackId, type});
     }
 
 }

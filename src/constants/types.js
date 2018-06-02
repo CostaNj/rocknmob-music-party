@@ -7,7 +7,7 @@ export const types = [
     {
         typeNumber: 1,
         typeRole: 'vocal2',
-        typeHeader: 'Вокал'
+        typeHeader: 'Вокал2'
     },
     {
         typeNumber: 2,
@@ -22,7 +22,7 @@ export const types = [
     {
         typeNumber: 4,
         typeRole: 'bass',
-        typeHeader: 'Басс'
+        typeHeader: 'Бас'
     },
     {
         typeNumber: 5,

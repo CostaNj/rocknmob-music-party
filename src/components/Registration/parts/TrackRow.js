@@ -19,6 +19,7 @@ export class TrackRow extends PureComponent {
                   });
                   return (
                       <UserCell
+                          currentUser={this.props.currentUser}
                           participation={currentParticipation}
                           socket={socket}
                           key={`${type.typeRole}_th`}

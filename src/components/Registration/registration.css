@@ -9,6 +9,7 @@ table th {
 
 table td {
     text-align: center;
+    font-size: 12px;
 }
 
 table td a {
@@ -34,8 +35,32 @@ table td.unreservedCell:hover {
     background-color: rgba(13,222,23, 0.25);
 }
 
+table td.myReservedCell {
+    background-color: #28a745;
+}
+
+table td.myReservedCell:hover {
+    background-color: rgba(240,100,100, 0.3);
+    color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+table td.myReservedCell:hover:before {
+    color: whitesmoke;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    content: "Отменить";
+}
+
 .offerSection {
-    margin: 10px;
+    margin: 10px 0;
     width: 50%;
     min-width: 300px;
     display: flex;
