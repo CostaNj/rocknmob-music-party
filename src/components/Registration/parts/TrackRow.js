@@ -9,7 +9,9 @@ export class TrackRow extends PureComponent {
         return (
             <tr key={rowData.name+'_tr'}>
                 <td>{index + 1}</td>
-                <td>{rowData.name}</td>
+                <td className='trackNameCell'>
+                    <a href={`https://www.youtube.com/results?search_query=${rowData.name}`} target="_blank"> {rowData.name ? rowData.name : ''}</a>
+                </td>
                 {types.map((type, index)=>{
                   let currentParticipation = null;
                   rowData.participations.forEach((participation)=>{

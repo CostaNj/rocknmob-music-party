@@ -15,7 +15,6 @@ class Enter extends Component{
         }
     }
 
-
     componentDidMount() {
         this.getSessionUserId();
     }
@@ -29,7 +28,7 @@ class Enter extends Component{
                             <ScaleLoader
                                 color={'rgba(241,104,37, 0.4)'}
                                 loading={this.state.loading}
-                                width ={10}
+                                width={10}
                             />
                         </div>
                     </div>
@@ -72,7 +71,11 @@ class Enter extends Component{
                             <h5> За любое нарушение правил к участнику будут применены санкции на усмотрение
                                 организаторов </h5>
                         </div>
-                        <a href='/auth/vk'>Log in</a>
+                        <a href='/auth/vk'>
+                            <Button color="secondary">
+                                Войти через VK
+                            </Button>
+                        </a>
                     </div>
                 }
             </div>

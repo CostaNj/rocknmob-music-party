@@ -11,7 +11,7 @@ export class UserCell extends PureComponent {
             <td onClick={this.click}
                 className={participation ? (isMyParticipation ? "myReservedCell" : "reservedCell") : "unreservedCell"}>
                 {participation ?
-                    (isMyParticipation ? <div>{fio}</div> : <a href={`https://vk.com/id${currentCellUid}`} target="_blank">{fio}</a>)
+                    (isMyParticipation ? <div className='cellFioText'>{fio}</div> : <a href={`https://vk.com/id${currentCellUid}`} target="_blank">{fio}</a>)
                     : 'Записаться'
                 }
             </td>

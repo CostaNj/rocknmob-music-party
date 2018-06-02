@@ -3,9 +3,10 @@ import socketIOClient from 'socket.io-client'
 import { RegistrationTable, ErrorModal } from './parts'
 import {withRouter} from 'react-router-dom'
 import {ScaleLoader} from 'react-spinners'
-import {InputGroup, Input, InputGroupAddon} from 'reactstrap'
+import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
 import axios from "axios";
+
 
 class Registration extends Component {
     constructor() {
@@ -92,9 +93,24 @@ class Registration extends Component {
                         </div>
                     </div>
                     :
-                    <div>
-                        <h1>Registration</h1>
-                        <a href='/logout'>Log out</a>
+                    <div className='registrationFrame'>
+                        <h1> Регистрация на 23.06.2018</h1>
+                        <div style={{color: 'red', lineHeight: '16px', fontSize: '13px'}}>
+                                В конце дня сгорают песни с кол-вом записавшихся: 0
+                        </div>
+                        <div style={{color: 'red', lineHeight: '16px', fontSize: '13px'}}>
+                                В конце недели сгорают песни с кол-вом записавшихся: 1
+                        </div>
+                        <div style={{width: '100%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center'}}
+                        >
+                            <img src={this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
+                            <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
+                        </div>
+
                         <RegistrationTable currentUser = {this.state.currentUser} data={this.state.data} socket={this.socket}/>
                         <div className="offerSection">
                             <InputGroup>
@@ -103,13 +119,14 @@ class Registration extends Component {
                                     value={this.state.trackTitle}
                                     onChange={e => this.setState({trackTitle: e.target.value})}
                                 />
-                                <InputGroupAddon
-                                    color="secondary"
-                                    addonType="append"
-                                    onClick={() => this.addTrack(this.state.trackTitle)}
-                                    disabled={false}
-                                >
-                                    Предложить трек
+                                <InputGroupAddon addonType="append">
+                                    <Button
+                                        onClick={() => this.addTrack(this.state.trackTitle)}
+                                        disabled={this.state.trackTitle === ''}
+                                        color="secondary"
+                                    >
+                                        Предложить трек
+                                    </Button>
                                 </InputGroupAddon>
                             </InputGroup>
                         </div>

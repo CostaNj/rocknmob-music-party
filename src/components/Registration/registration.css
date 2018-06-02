@@ -1,15 +1,23 @@
+.registrationFrame {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
 .tableResponsiveStyle {
     width: 100%;
     color: white;
 }
 
-table th {
-    text-align: center;
-}
 
-table td {
-    text-align: center;
+
+table th, table td {
+    vertical-align: middle !important;
+    text-align: center !important;
     font-size: 12px;
+    width: 200px;
+    height: 50px;
 }
 
 table td a {
@@ -27,6 +35,22 @@ table td:hover {
     cursor: pointer;
 }
 
+
+table td.trackNameCell {
+    min-width: 170px;
+    border-right: #FFFFFF 1px solid;
+    border-left: rgba(255, 255, 255, 0.2) 1px solid;
+}
+
+table td.trackNameCell:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle !important;
+    text-align: center !important;
+    background: transparent url("./img/youtube.png") no-repeat center center;
+    background-size: 100%;
+}
+
 table td.reservedCell {
     background-color: rgba(13,222,23, 0.25);
 }
@@ -42,22 +66,23 @@ table td.myReservedCell {
 table td.myReservedCell:hover {
     background-color: rgba(240,100,100, 0.3);
     color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 200px;
+    height: 50px;
+}
+
+table td.myReservedCell:hover .cellFioText {
+    display: none;
 }
 
 
 table td.myReservedCell:hover:before {
     color: whitesmoke;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     content: "Отменить";
+    width: 200px;
+    height: 50px;
+    line-height: 35px;
 }
+
 
 .offerSection {
     margin: 10px 0;
