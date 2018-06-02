@@ -1,1 +1,1 @@
-export {Registration} from './Registration'
+export {RegistrationWithRouter as Registration} from './Registration'

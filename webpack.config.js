@@ -22,13 +22,21 @@ module.exports = {
         historyApiFallback: true,
         //задает папку из которой брать статику (по умолчанию из текущей)
         //contentBase: path.resolve(__dirname, './dist'),
-        //все пути, которые не найдены у нас направлялись на порт 3001
-        // proxy: {
-        //     "*": {
-        //         target: "http://localhost:3001",
-        //         secure: false
-        //     }
-        // }
+        //все пути, которые не найдены у нас направлялись на порт 3002
+        proxy: {
+            "/auth/vk": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+            "/getSession": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+            "/logout": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+        }
     },
     module: {
         rules: [

@@ -1,0 +1,70 @@
+.tableResponsiveStyle {
+    width: 100%;
+    color: white;
+}
+
+table th {
+    text-align: center;
+}
+
+table td {
+    text-align: center;
+    font-size: 12px;
+}
+
+table td a {
+    color: white;
+    text-decoration: none;
+}
+
+table td a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+table td:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+table td.reservedCell {
+    background-color: rgba(13,222,23, 0.25);
+}
+
+table td.unreservedCell:hover {
+    background-color: rgba(13,222,23, 0.25);
+}
+
+table td.myReservedCell {
+    background-color: #28a745;
+}
+
+table td.myReservedCell:hover {
+    background-color: rgba(240,100,100, 0.3);
+    color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+table td.myReservedCell:hover:before {
+    color: whitesmoke;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    content: "Отменить";
+}
+
+.offerSection {
+    margin: 10px 0;
+    width: 50%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
