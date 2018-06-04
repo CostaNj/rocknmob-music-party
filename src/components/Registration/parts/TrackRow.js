@@ -4,11 +4,17 @@ import get from 'lodash/get'
 import {types} from '../../../constants/types'
 
 export class TrackRow extends PureComponent {
+
+    deleteCurrentTrack = () => {
+        const {deleteTrack, rowData} = this.props;
+        deleteTrack(rowData);
+    };
+
     render() {
         const {rowData, index, socket} = this.props;
         return (
             <tr key={rowData.name+'_tr'}>
-                <td onClick={this.deleteTrack}>{index + 1}</td>
+                <td onClick={this.deleteCurrentTrack}>{index + 1}</td>
                 <td className='trackNameCell'>
                     <a href={`https://www.youtube.com/results?search_query=${rowData.name}`} target="_blank"> {rowData.name ? rowData.name : ''}</a>
                 </td>
@@ -31,12 +37,5 @@ export class TrackRow extends PureComponent {
                 })}
             </tr>
         );
-    }
-
-    deleteTrack = () => {
-        if(get(this.props, 'currentUser.admin', false)) {
-            const {rowData, socket} = this.props;
-            socket.emit('deleteTrack', rowData.id)
-        }
     }
 }

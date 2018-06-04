@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import socketIOClient from 'socket.io-client'
-import { RegistrationTable, ErrorModal } from './parts'
+import { RegistrationTable, ErrorModal, DeleteTrackModal } from './parts'
 import {withRouter} from 'react-router-dom'
 import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
 import axios from "axios";
+import get from 'lodash/get'
 import {Loader} from '../Loader'
 
 
@@ -17,6 +18,8 @@ class Registration extends Component {
             loading: false,
             currentUser: null,
             isShowErrorMessage: false,
+            isShowDeleteDialog: false,
+            deletedRowData: null,
             errorMessage: ''
         };
 
@@ -35,15 +38,10 @@ class Registration extends Component {
         });
 
         this.socket.on('showErrorModal', (errorInfo) => {
-            console.log(errorInfo);
             this.setState({
                 isShowErrorMessage: true,
                 errorMessage: errorInfo.message
             });
-            setTimeout(()=> this.setState({
-                isShowErrorMessage: false,
-                errorMessage: ''
-            }), 3000);
         });
 
         this.getSessionUserId();
@@ -52,7 +50,34 @@ class Registration extends Component {
     addTrack = (trackTitle) => {
         if(trackTitle !== '') {
             this.socket.emit('addTrack', { name: trackTitle });
+            this.setState({
+                trackTitle: ''
+            })
         }
+    };
+
+    closeErrorDialog = () => {
+        this.setState({
+            isShowErrorMessage: false,
+            errorMessage: ''
+        })
+    };
+
+    deleteTrack = (rowData) => {
+        if(get(this.state, 'currentUser.admin', false)) {
+            this.setState({
+                isShowDeleteDialog: true,
+                deletedRowData: rowData
+            });
+        }
+    };
+
+    deleteDialogResult = (result) => {
+        result && this.state.deletedRowData && this.state.deletedRowData.id ?  this.socket.emit('deleteTrack', this.state.deletedRowData.id) : null;
+        this.setState({
+            isShowDeleteDialog: false,
+            deletedRowData: null
+        });
     };
 
     getSessionUserId = () => {
@@ -103,7 +128,12 @@ class Registration extends Component {
                             <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
                         </div>
 
-                        <RegistrationTable currentUser = {this.state.currentUser} data={this.state.data} socket={this.socket}/>
+                        <RegistrationTable
+                            currentUser = {this.state.currentUser}
+                            data={this.state.data}
+                            socket={this.socket}
+                            deleteTrack = {this.deleteTrack}
+                        />
                         <div className="offerSection">
                             <InputGroup>
                                 <Input
@@ -122,7 +152,17 @@ class Registration extends Component {
                                 </InputGroupAddon>
                             </InputGroup>
                         </div>
-                        <ErrorModal isOpen={this.state.isShowErrorMessage} errorMessage={this.state.errorMessage}/>
+                        <ErrorModal
+                            isOpen={this.state.isShowErrorMessage}
+                            errorMessage={this.state.errorMessage}
+                            closeErrorDialog = {this.closeErrorDialog}
+                        />
+                        <DeleteTrackModal
+                            isOpen={this.state.isShowDeleteDialog}
+                            questionText = 'Вы действительно хотите удалить трек и всех его участников?'
+                            rowData = {this.state.deletedRowData}
+                            deleteDialogResult ={this.deleteDialogResult}
+                        />
                     </div>
                 }
             </div>

@@ -21,7 +21,17 @@ export class RegistrationTable extends Component {
                     <tbody>
                         {data
                             //.sort(this.compare)
-                            .map((rowData, index)=><TrackRow currentUser = {this.props.currentUser} key={rowData.id} socket={socket} index={index} rowData={rowData}/>)}
+                            .map((rowData, index)=>
+                                <TrackRow
+                                    currentUser = {this.props.currentUser}
+                                    key={rowData.id}
+                                    socket={socket}
+                                    index={index}
+                                    rowData={rowData}
+                                    deleteTrack={this.props.deleteTrack}
+                                />
+                            )
+                        }
                     </tbody>
                 </Table>
             </div>
