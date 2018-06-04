@@ -42,8 +42,9 @@ table td.trackNameCell {
     border-left: rgba(255, 255, 255, 0.2) 1px solid;
 }
 
-table td.trackNameCell:before {
-    content: "";
+table td.trackNameCell a:before {
+    content: "you";
+    color: transparent;
     display: inline-block;
     vertical-align: middle !important;
     text-align: center !important;
