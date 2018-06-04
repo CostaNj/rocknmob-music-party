@@ -1,5 +1,6 @@
 let path = require('path');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 let webpack = require('webpack');
 
 module.exports = {
@@ -69,7 +70,9 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('style.css'),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new UglifyJsPlugin()
     ],
+
     devtool: process.argv.indexOf('production') !== -1 ? 'source-map' : 'eval-source-map'
 };

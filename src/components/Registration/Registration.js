@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import socketIOClient from 'socket.io-client'
 import { RegistrationTable, ErrorModal } from './parts'
 import {withRouter} from 'react-router-dom'
-import {ScaleLoader} from 'react-spinners'
 import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
 import axios from "axios";
+import {Loader} from '../Loader'
 
 
 class Registration extends Component {
@@ -81,17 +81,9 @@ class Registration extends Component {
 
     render() {
         return(
-            <div>
+            <div style={{width: '100%'}}>
                 {this.state.loading ?
-                    <div style={{flex: 1}}>
-                        <div style={{height: '1000px', width: '100px', margin: '0 auto'}}>
-                            <ScaleLoader
-                                color={'rgba(241,104,37, 0.4)'}
-                                loading={this.state.loading}
-                                width={10}
-                            />
-                        </div>
-                    </div>
+                    <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
                         <h1> Регистрация на 23.06.2018</h1>

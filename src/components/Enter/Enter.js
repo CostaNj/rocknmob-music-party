@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import './enter.css'
 import {Button} from 'reactstrap'
-import {ScaleLoader} from 'react-spinners'
+import {Loader} from '../Loader'
 import axios from 'axios'
 
 class Enter extends Component{
@@ -21,17 +21,9 @@ class Enter extends Component{
 
     render() {
              return(
-            <div>
+            <div style={{width: '100%'}}>
                 {this.state.loading ?
-                    <div style={{flex: 1}}>
-                        <div style = {{height: '1000px', width: '100px', margin: '0 auto'}}>
-                            <ScaleLoader
-                                color={'rgba(241,104,37, 0.4)'}
-                                loading={this.state.loading}
-                                width={10}
-                            />
-                        </div>
-                    </div>
+                    <Loader loading={this.state.loading}/>
                     :
                     <div className='loginFrame'>
                         <div className="rules">
