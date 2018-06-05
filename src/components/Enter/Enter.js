@@ -88,7 +88,7 @@ class Enter extends Component{
                             loading: false
                         });
                     } else {
-                        _this.props.history.push('/registration');
+                        _this.props.history.push('/jam/registration');
                     }
                 })
                 .catch(function (error) {

@@ -7,8 +7,8 @@ export default class MyRouter extends Component {
        return(
            <BrowserRouter>
                <div style={{width: '100%'}}>
-                   <Route exact path="/registration" component={Registration}/>
-                   <Route exact path="/" component={Enter}/>
+                   <Route exact path="/jam/registration" component={Registration}/>
+                   <Route exact path="/jam" component={Enter}/>
                </div>
            </BrowserRouter>
        )

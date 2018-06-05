@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
         //в браузере будет dist/main.js
-        publicPath: 'dist/'
+        publicPath: '/jam/dist/'
     },
     devServer: {
         host: 'localhost',

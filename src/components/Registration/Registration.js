@@ -23,7 +23,7 @@ class Registration extends Component {
             errorMessage: ''
         };
 
-        this.socket = socketIOClient.connect('http://localhost:3002');
+        this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
     }
 
     componentWillMount() {
@@ -90,7 +90,7 @@ class Registration extends Component {
                 .then(function (response) {
                     //console.log(response);
                     if(response.data === '') {
-                        _this.props.history.push('/');
+                        _this.props.history.push('/jam');
                     } else {
                         _this.setState({
                             loading: false,
