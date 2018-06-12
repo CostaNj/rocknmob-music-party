@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import socketIOClient from 'socket.io-client'
-import { RegistrationTable, ErrorModal, DeleteTrackModal } from './parts'
+import { RegistrationTable, ErrorModal, DeleteTrackModal, SortDropdown } from './parts'
 import {withRouter} from 'react-router-dom'
 import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
@@ -20,7 +20,9 @@ class Registration extends Component {
             isShowErrorMessage: false,
             isShowDeleteDialog: false,
             deletedRowData: null,
-            errorMessage: ''
+            errorMessage: '',
+            sortType: 'date',
+            sortText: 'По дате добавления'
         };
 
         this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
@@ -121,11 +123,19 @@ class Registration extends Component {
                         <div style={{width: '100%',
                             display: 'flex',
                             flexDirection: 'row',
-                            justifyContent: 'flex-end',
+                            justifyContent: 'space-between',
                             alignItems: 'center'}}
                         >
-                            <img src={this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
-                            <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
+                            <div>
+                                <SortDropdown
+                                    sortText={this.state.sortText}
+                                    setSort={this.setSort}
+                                />
+                            </div>
+                            <div>
+                                <img src={this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
+                                <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
+                            </div>
                         </div>
 
                         <RegistrationTable
@@ -133,6 +143,7 @@ class Registration extends Component {
                             data={this.state.data}
                             socket={this.socket}
                             deleteTrack = {this.deleteTrack}
+                            sortType={this.state.sortType}
                         />
                         <div className="offerSection">
                             <InputGroup>
@@ -167,6 +178,71 @@ class Registration extends Component {
                 }
             </div>
         )
+    }
+
+    getSessionUserId = () => {
+        let _this = this;
+        this.setState({
+            loading: true
+        });
+        setTimeout(()=>{
+            axios.get('/getSession')
+                .then(function (response) {
+                    //console.log(response);
+                    if(response.data === '') {
+                        _this.props.history.push('/');
+                    } else {
+                        _this.setState({
+                            loading: false,
+                            currentUser: response.data
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    // console.log(error);
+                });
+        }, 2000);
+    };
+
+    addTrack = (trackTitle) => {
+        if(trackTitle !== '') {
+            this.socket.emit('addTrack', { name: trackTitle });
+            this.setState({
+                trackTitle: ''
+            })
+        }
+    };
+
+
+    deleteTrack = (rowData) => {
+        if(get(this.state, 'currentUser.admin', false)) {
+            this.setState({
+                isShowDeleteDialog: true,
+                deletedRowData: rowData
+            });
+        }
+    };
+
+    closeErrorDialog = () => {
+        this.setState({
+            isShowErrorMessage: false,
+            errorMessage: ''
+        })
+    };
+
+    deleteDialogResult = (result) => {
+        result && this.state.deletedRowData && this.state.deletedRowData.id ?  this.socket.emit('deleteTrack', this.state.deletedRowData.id) : null;
+        this.setState({
+            isShowDeleteDialog: false,
+            deletedRowData: null
+        });
+    };
+
+    setSort = (sortType, sortText) => {
+        this.setState({
+            sortType,
+            sortText
+        })
     }
 }
 

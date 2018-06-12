@@ -6,8 +6,7 @@ import {types} from '../../../constants/types'
 export class RegistrationTable extends Component {
     render() {
         const {data, socket} = this.props;
-        //console.log('data type: ', typeof data);
-        //console.log('data: ', data);
+
         return (
             <div className="tableResponsiveStyle">
                 <Table responsive>
@@ -19,18 +18,18 @@ export class RegistrationTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {data
-                            //.sort(this.compare)
-                            .map((rowData, index)=>
-                                <TrackRow
-                                    currentUser = {this.props.currentUser}
-                                    key={rowData.id}
-                                    socket={socket}
-                                    index={index}
-                                    rowData={rowData}
-                                    deleteTrack={this.props.deleteTrack}
-                                />
-                            )
+                        {
+                            this.getSortedData(data, this.props.sortType)
+                                .map((rowData, index)=>
+                                    <TrackRow
+                                        currentUser = {this.props.currentUser}
+                                        key={rowData.id}
+                                        socket={socket}
+                                        index={index}
+                                        rowData={rowData}
+                                        deleteTrack={this.props.deleteTrack}
+                                    />
+                                )
                         }
                     </tbody>
                 </Table>
@@ -38,7 +37,30 @@ export class RegistrationTable extends Component {
         );
     }
 
-    compare(firstTrack, secondTrack) {
+    getSortedData = (data, sortType) => {
+      if(sortType === 'fullness') {
+          return data.sort(this.compareFullness);
+      }
+
+      return data.sort(this.compareDate);
+    };
+
+
+    compareDate(firstTrack, secondTrack) {
+        let track1 = firstTrack.id;
+        let track2 = secondTrack.id;
+        if (track1<track2) {
+            return -1;
+        }
+        if (track1>track2) {
+            return 1;
+        }
+        return 0;
+    }
+
+
+
+    compareFullness(firstTrack, secondTrack) {
         let track1 = firstTrack.participations.length;
         let track2 = secondTrack.participations.length;
         if (track1>track2) {
