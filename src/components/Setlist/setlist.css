@@ -1,0 +1,53 @@
+.registrationFrame {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.tableResponsiveStyle {
+    width: 100%;
+    color: white;
+}
+
+
+
+table th, table td {
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 12px;
+    width: 200px;
+    height: 50px;
+}
+
+table td a {
+    color: white;
+    text-decoration: none;
+}
+
+table td a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+table td:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+
+table td.trackNameCell {
+    min-width: 170px;
+    border-right: #FFFFFF 1px solid;
+    border-left: rgba(255, 255, 255, 0.2) 1px solid;
+}
+
+table td.trackNameCell a:before {
+    content: "you";
+    color: transparent;
+    display: inline-block;
+    vertical-align: middle !important;
+    text-align: center !important;
+    background: transparent url("./img/youtube.png") no-repeat center center;
+    background-size: 100%;
+}

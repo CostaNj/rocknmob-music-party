@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {BrowserRouter, Route } from 'react-router-dom'
-import {Enter, Registration} from './components'
+import {Enter, Registration, Setlist} from './components'
 
 export default class MyRouter extends Component {
     render() {
@@ -9,6 +9,7 @@ export default class MyRouter extends Component {
                <div style={{width: '100%'}}>
                    <Route exact path="/jam/registration" component={Registration}/>
                    <Route exact path="/jam" component={Enter}/>
+                   <Route exact path="/jam/setlist" component={Setlist}/>
                </div>
            </BrowserRouter>
        )

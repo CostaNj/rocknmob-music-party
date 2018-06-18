@@ -106,6 +106,13 @@ class Registration extends Component {
         }, 2000);
     };
 
+    setSort = (sortType, sortText) => {
+        this.setState({
+            sortType,
+            sortText
+        })
+    };
+
     render() {
         return(
             <div style={{width: '100%'}}>
@@ -180,70 +187,6 @@ class Registration extends Component {
         )
     }
 
-    getSessionUserId = () => {
-        let _this = this;
-        this.setState({
-            loading: true
-        });
-        setTimeout(()=>{
-            axios.get('/getSession')
-                .then(function (response) {
-                    //console.log(response);
-                    if(response.data === '') {
-                        _this.props.history.push('/');
-                    } else {
-                        _this.setState({
-                            loading: false,
-                            currentUser: response.data
-                        });
-                    }
-                })
-                .catch(function (error) {
-                    // console.log(error);
-                });
-        }, 2000);
-    };
-
-    addTrack = (trackTitle) => {
-        if(trackTitle !== '') {
-            this.socket.emit('addTrack', { name: trackTitle });
-            this.setState({
-                trackTitle: ''
-            })
-        }
-    };
-
-
-    deleteTrack = (rowData) => {
-        if(get(this.state, 'currentUser.admin', false)) {
-            this.setState({
-                isShowDeleteDialog: true,
-                deletedRowData: rowData
-            });
-        }
-    };
-
-    closeErrorDialog = () => {
-        this.setState({
-            isShowErrorMessage: false,
-            errorMessage: ''
-        })
-    };
-
-    deleteDialogResult = (result) => {
-        result && this.state.deletedRowData && this.state.deletedRowData.id ?  this.socket.emit('deleteTrack', this.state.deletedRowData.id) : null;
-        this.setState({
-            isShowDeleteDialog: false,
-            deletedRowData: null
-        });
-    };
-
-    setSort = (sortType, sortText) => {
-        this.setState({
-            sortType,
-            sortText
-        })
-    }
 }
 
 const RegistrationWithRouter = withRouter(Registration);
