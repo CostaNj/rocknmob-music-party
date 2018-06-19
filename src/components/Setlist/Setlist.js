@@ -17,7 +17,7 @@ class Setlist extends Component {
             currentUser: null,
         };
 
-        this.socket = socketIOClient.connect('http://localhost:3002');
+        this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
     }
 
     componentWillMount() {

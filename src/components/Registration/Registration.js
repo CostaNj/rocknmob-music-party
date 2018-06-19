@@ -94,10 +94,11 @@ class Registration extends Component {
                     if(response.data === '') {
                         _this.props.history.push('/jam');
                     } else {
-                        _this.setState({
-                            loading: false,
-                            currentUser: response.data
-                        });
+                        _this.props.history.push('/jam/setlist');
+                        // _this.setState({
+                        //     loading: false,
+                        //     currentUser: response.data
+                        // });
                     }
                 })
                 .catch(function (error) {

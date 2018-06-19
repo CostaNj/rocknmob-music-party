@@ -67,10 +67,10 @@ export class SetlistTable extends Component {
     compareDrummers(firstTrack, secondTrack) {
         let drummerFirstTrackUid = firstTrack.participations.filter(
             (participation) => participation.type === types[5].typeNumber
-        )[0].user.id;
+         )[0].user.fio.split(' ')[1];
         let drummerSecondTrackUid = secondTrack.participations.filter(
             (participation) => participation.type === types[5].typeNumber
-        )[0].user.id;
+        )[0].user.fio.split(' ')[1];
 
         if (drummerFirstTrackUid < drummerSecondTrackUid) {
             return -1;
