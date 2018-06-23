@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom'
 import './setlist.css'
 import axios from "axios";
 import {Loader} from '../Loader'
+import get from 'lodash/get'
 
 
 class Setlist extends Component {
@@ -15,6 +16,7 @@ class Setlist extends Component {
             trackTitle: '',
             loading: false,
             currentUser: null,
+            activeTrackId: null
         };
 
         this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
@@ -28,6 +30,12 @@ class Setlist extends Component {
         this.socket.on('getData', (info) => {
             this.setState({
                 data: info.data
+            })
+        });
+
+        this.socket.on('updateCheckTrack', (trackId) => {
+            this.setState({
+                activeTrackId: trackId
             })
         });
 
@@ -58,6 +66,12 @@ class Setlist extends Component {
         }, 2000);
     };
 
+    checkTrack = (rowData) => {
+        if(get(this.state, 'currentUser.admin', false)) {
+            this.socket.emit('checkNewTrack', rowData.id)
+        }
+    };
+
     render() {
         return(
             <div style={{width: '100%'}}>
@@ -79,7 +93,12 @@ class Setlist extends Component {
                             </div>
                         </div>
 
-                        <SetlistTable data={this.state.data}/>
+                        <SetlistTable
+                            data={this.state.data}
+                            checkTrack={this.checkTrack}
+                            socket={this.socket}
+                            activeTrackId={this.state.activeTrackId}
+                        />
                     </div>
                 }
             </div>

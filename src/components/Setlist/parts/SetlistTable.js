@@ -27,6 +27,9 @@ export class SetlistTable extends Component {
                                     key={rowData.id}
                                     index={index}
                                     rowData={rowData}
+                                    checkTrack={this.props.checkTrack}
+                                    socket={this.props.socket}
+                                    activeTrackId={this.props.activeTrackId}
                                 />
                             )
                     }

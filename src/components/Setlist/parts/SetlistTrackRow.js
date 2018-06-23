@@ -6,11 +6,17 @@ import {types} from '../../../constants/types'
 export class SetlistTrackRow extends PureComponent {
 
 
+    checkCurrentTrack = () => {
+        const {rowData, checkTrack} = this.props;
+        checkTrack(rowData);
+    };
+
     render() {
-        const {rowData, index} = this.props;
+        const {rowData, index, activeTrackId} = this.props;
         return (
-            <tr key={rowData.name+'_tr'} style={{backgroundColor: `${index%2 === 0 ? 'rgba(0,0,0,0.5)' : 'rgba(40,40,40,0.5)'}`}}>
-                <td>{index + 1}</td>
+            <tr key={rowData.name+'_tr'} style={{backgroundColor: `${ activeTrackId !== rowData.id  ?
+                    (index%2 === 0 ? 'rgba(0,0,0,0.5)' : 'rgba(40,40,40,0.5)') : 'green'}`}}>
+                <td onClick={this.checkCurrentTrack}>{index + 1}</td>
                 <td className='trackNameCell'>
                     <a href={`https://www.youtube.com/results?search_query=${rowData.name}`} target="_blank"> {rowData.name ? rowData.name : ''}</a>
                 </td>
