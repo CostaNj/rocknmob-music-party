@@ -1,7 +1,7 @@
 import React from 'react'
 import {Footer} from './components'
 import './app.css';
-import logo from './res/img/header_rocknmob_music_party_4.png'
+import logo from './res/img/header_rocknmob_music_party_5.jpg'
 
 const Layout = ({children}) => {
   return (
