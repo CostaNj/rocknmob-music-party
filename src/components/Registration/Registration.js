@@ -121,7 +121,7 @@ class Registration extends Component {
                     <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
-                        <h1> Регистрация на 23.06.2018</h1>
+                        <h1> Регистрация на 11.08.2018</h1>
                         <div style={{color: 'red', lineHeight: '16px', fontSize: '13px'}}>
                                 В конце дня сгорают песни с кол-вом записавшихся: 0
                         </div>
