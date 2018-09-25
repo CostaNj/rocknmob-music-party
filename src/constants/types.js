@@ -2,12 +2,12 @@ export const types = [
     {
         typeNumber: 0,
         typeRole: 'vocal1',
-        typeHeader: 'Вокал1'
+        typeHeader: 'Вокал'
     },
     {
         typeNumber: 1,
         typeRole: 'vocal2',
-        typeHeader: 'Вокал2'
+        typeHeader: 'Бэк'
     },
     {
         typeNumber: 2,

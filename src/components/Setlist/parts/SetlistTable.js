@@ -76,10 +76,10 @@ export class SetlistTable extends Component {
         )[0].user.fio.split(' ')[1];
 
         if (drummerFirstTrackUid < drummerSecondTrackUid) {
-            return -1;
+            return 1;
         }
         if (drummerFirstTrackUid > drummerSecondTrackUid) {
-            return 1;
+            return -1;
         }
         return 0;
     }
