@@ -53,10 +53,10 @@ class Enter extends Component{
                                 <li>Вписывать в сетлист&nbsp;
                                     <a
                                         style={{textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold'}}
-                                        href='https://vk.com/rnmmusicparty?w=wall-157371213_121'
+                                        href='https://pp.userapi.com/c851120/v851120483/4ad5f/Yrbtm02hWXQ.jpg'
                                         target="_blank"
                                     >
-                                        треки с Jam Party №4
+                                        треки с Jam Party №8
                                     </a>.
                                 </li>
                             </ol>
