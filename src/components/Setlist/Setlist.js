@@ -79,7 +79,7 @@ class Setlist extends Component {
                     <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
-                        <h1> Сетлист на 09.12.2018</h1>
+                        <h1> Сетлист на 9 января 2022г</h1>
 
                         <div style={{width: '100%',
                             display: 'flex',
@@ -88,7 +88,7 @@ class Setlist extends Component {
                             alignItems: 'center'}}
                         >
                             <div>
-                                <img src={this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
+                                <img src={this.state.currentUser && this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
                                 <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
                             </div>
                         </div>
