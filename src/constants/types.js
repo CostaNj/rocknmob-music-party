@@ -12,12 +12,12 @@ export const types = [
     {
         typeNumber: 2,
         typeRole: 'guitar1',
-        typeHeader: 'Акустика'
+        typeHeader: 'Гитара1'
     },
     {
         typeNumber: 3,
         typeRole: 'guitar2',
-        typeHeader: 'Акустика / Электро (clean)'
+        typeHeader: 'Гитара2'
     },
     {
         typeNumber: 4,
@@ -27,11 +27,11 @@ export const types = [
     {
         typeNumber: 5,
         typeRole: 'drums',
-        typeHeader: 'Ударные / Перкуссия'
+        typeHeader: 'Ударные'
     },
     {
         typeNumber: 6,
         typeRole: 'piano',
-        typeHeader: 'Клавиши / Другое'
+        typeHeader: 'Клавиши'
     }
 ];
