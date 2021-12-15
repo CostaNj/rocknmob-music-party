@@ -19,8 +19,12 @@ class Registration extends Component {
             currentUser: null,
             isShowErrorMessage: false,
             isShowDeleteDialog: false,
+            isShowDeleteAllDialog: false,
             deletedRowData: null,
             errorMessage: '',
+            errorType: '',
+            trackOfferLimit: 3,
+            participationLimit: 3,
             sortType: 'date',
             sortText: 'По дате добавления'
         };
@@ -42,7 +46,10 @@ class Registration extends Component {
         this.socket.on('showErrorModal', (errorInfo) => {
             this.setState({
                 isShowErrorMessage: true,
-                errorMessage: errorInfo.message
+                errorMessage: errorInfo.message,
+                errorType: errorInfo.type,
+                trackOfferLimit: errorInfo.trackOfferLimit,
+                participationLimit: errorInfo.participationLimit,
             });
         });
 
@@ -61,7 +68,8 @@ class Registration extends Component {
     closeErrorDialog = () => {
         this.setState({
             isShowErrorMessage: false,
-            errorMessage: ''
+            errorMessage: '',
+            errorType: ''
         })
     };
 
@@ -79,6 +87,21 @@ class Registration extends Component {
         this.setState({
             isShowDeleteDialog: false,
             deletedRowData: null
+        });
+    };
+
+    deleteAll = () => {
+        if(get(this.state, 'currentUser.admin', false)) {
+            this.setState({
+                isShowDeleteAllDialog: true
+            });
+        }
+    };
+
+    deleteDialogAllResult = (result) => {
+        result ? this.socket.emit('cleanTable') : null
+        this.setState({
+            isShowDeleteAllDialog: false
         });
     };
 
@@ -121,12 +144,15 @@ class Registration extends Component {
                     <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
-                        <h1> Регистрация на 09.12.2018</h1>
-                        <div style={{color: 'red', lineHeight: '16px', fontSize: '13px'}}>
-                                В конце дня сгорают песни с кол-вом записавшихся: 0
+                        <h1> Регистрация на 9 января 2022г</h1>
+                        <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
+                            Финальный порядок выступлений будет определен в день мероприятия.
                         </div>
-                        <div style={{color: 'red', lineHeight: '16px', fontSize: '13px'}}>
-                                В конце недели сгорают песни с кол-вом записавшихся: 1
+                        <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
+                            Первый состав выходит на сцену в 18:00.
+                        </div>
+                        <div style={{color: 'red', lineHeight: '24px', fontSize: '22px', marginTop: '10px'}}>
+                            НОШЕНИЕ МАСОК ОБЯЗАТЕЛЬНО ДЛЯ ВСЕХ !!
                         </div>
                         <div style={{width: '100%',
                             display: 'flex',
@@ -141,7 +167,7 @@ class Registration extends Component {
                                 />
                             </div>
                             <div>
-                                <img src={this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
+                                <img src={this.state.currentUser && this.state.currentUser.photos[0].value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
                                 <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
                             </div>
                         </div>
@@ -151,6 +177,7 @@ class Registration extends Component {
                             data={this.state.data}
                             socket={this.socket}
                             deleteTrack = {this.deleteTrack}
+                            deleteAllTracks = {this.deleteAll}
                             sortType={this.state.sortType}
                         />
                         <div className="offerSection">
@@ -174,6 +201,9 @@ class Registration extends Component {
                         <ErrorModal
                             isOpen={this.state.isShowErrorMessage}
                             errorMessage={this.state.errorMessage}
+                            errorType={this.state.errorType}
+                            trackOfferLimit={this.state.trackOfferLimit}
+                            participationLimit={this.state.participationLimit}
                             closeErrorDialog = {this.closeErrorDialog}
                         />
                         <DeleteTrackModal
@@ -181,6 +211,12 @@ class Registration extends Component {
                             questionText = 'Вы действительно хотите удалить трек и всех его участников?'
                             rowData = {this.state.deletedRowData}
                             deleteDialogResult ={this.deleteDialogResult}
+                        />
+                        <DeleteTrackModal
+                            isOpen={this.state.isShowDeleteAllDialog}
+                            questionText = 'Вы действительно хотите очистить таблицу?'
+                            rowData = {{ name: 'таблицы'}}
+                            deleteDialogResult ={this.deleteDialogAllResult}
                         />
                     </div>
                 }
