@@ -79,7 +79,7 @@ class Setlist extends Component {
                     <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
-                        <h1> Сетлист на 9 января 2022г</h1>
+                        <h1> Сетлист на 30 января 2022г</h1>
 
                         <div style={{width: '100%',
                             display: 'flex',

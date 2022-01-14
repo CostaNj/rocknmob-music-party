@@ -144,7 +144,7 @@ class Registration extends Component {
                     <Loader loading={this.state.loading}/>
                     :
                     <div className='registrationFrame'>
-                        <h1> Регистрация на 9 января 2022г</h1>
+                        <h1> Регистрация на 30 января 2022г</h1>
                         <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
                             Финальный порядок выступлений будет определен в день мероприятия.
                         </div>
