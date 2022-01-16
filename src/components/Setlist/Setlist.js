@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import socketIOClient from 'socket.io-client'
 import { SetlistTable } from './parts'
-import {withRouter} from 'react-router-dom'
+import {withRouter} from  'react-router-dom'
 import './setlist.css'
 import axios from "axios";
 import {Loader} from '../Loader'
@@ -19,7 +19,7 @@ class Setlist extends Component {
             activeTrackId: null
         };
 
-        this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
+        this.socket = socketIOClient.connect('https://rnm-musicparty.ru',{reconnect:true, transports: ['websocket', 'polling'] });
     }
 
     componentWillMount() {

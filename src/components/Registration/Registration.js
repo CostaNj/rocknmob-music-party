@@ -29,7 +29,7 @@ class Registration extends Component {
             sortText: 'По дате добавления'
         };
 
-        this.socket = socketIOClient.connect('https://rocknmob.com',{reconnect:true, transports: ['websocket', 'polling'] });
+        this.socket = socketIOClient.connect('https://rnm-musicparty.ru',{reconnect:true, transports: ['websocket', 'polling'] });
     }
 
     componentWillMount() {
