@@ -5,7 +5,7 @@ import {types} from '../../../constants/types'
 
 export class RegistrationTable extends Component {
     render() {
-        const {data, socket, deleteAllTracks} = this.props;
+        const {data, deleteAllTracks} = this.props;
 
         return (
             <div className="tableResponsiveStyle">
@@ -24,7 +24,6 @@ export class RegistrationTable extends Component {
                                     <TrackRow
                                         currentUser = {this.props.currentUser}
                                         key={rowData.id}
-                                        socket={socket}
                                         index={index}
                                         rowData={rowData}
                                         deleteTrack={this.props.deleteTrack}

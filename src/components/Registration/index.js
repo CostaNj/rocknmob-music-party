@@ -7,11 +7,9 @@ import axios from "axios";
 import get from 'lodash/get'
 import { Loader } from '../Loader'
 
-import socketIOClient from "socket.io-client";
+import { getSocket, openSocketConnection, closeSocketConnection } from '../../socket'
 
 const Registration = ({ history }) => {
-
-  const socket = socketIOClient.connect('http://localhost:3002',{reconnect:true, transports: ['websocket', 'polling'] });
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
@@ -38,7 +36,6 @@ const Registration = ({ history }) => {
         if(response.data === '') {
           history.push('/jam');
         } else {
-          console.log(response.data)
           setCurrentUser(response.data);
           setLoading(false)
         }
@@ -48,20 +45,27 @@ const Registration = ({ history }) => {
       });
   }, [])
 
-  socket.on('getData', (info) => {
-    setData(info.data)
-  });
+  useEffect(
+    () => {
+      openSocketConnection()
+      const socket = getSocket()
+      socket.on('getData', (info) => {
+        setData(info.data)
+      });
 
-  socket.on('showErrorModal', (newErrorInfo) => {
-    setErrorInfo({
-      ...errorInfo,
-      isShowErrorMessage: true,
-      errorMessage: newErrorInfo.message,
-      errorType: newErrorInfo.type,
-      trackOfferLimit: newErrorInfo.trackOfferLimit,
-      participationLimit: newErrorInfo.participationLimit,
-    });
-  });
+      socket.on('showErrorModal', (newErrorInfo) => {
+        setErrorInfo({
+          ...errorInfo,
+          isShowErrorMessage: true,
+          errorMessage: newErrorInfo.message,
+          errorType: newErrorInfo.type,
+          trackOfferLimit: newErrorInfo.trackOfferLimit,
+          participationLimit: newErrorInfo.participationLimit,
+        });
+      });
+
+      return () => closeSocketConnection()
+    },[])
 
   const addTrack = (newTrackTitle) => {
     if(newTrackTitle !== '') {
@@ -145,7 +149,6 @@ const Registration = ({ history }) => {
           <RegistrationTable
             currentUser={currentUser}
             data={data}
-            socket={socket}
             deleteTrack = {deleteTrack}
             deleteAllTracks = {deleteAll}
             sortType={sortType}

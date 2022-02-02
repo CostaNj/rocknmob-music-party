@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {UserCell} from './UserCell'
+import UserCell from './UserCell'
 import get from 'lodash/get'
 import {types} from '../../../constants/types'
 
@@ -11,7 +11,7 @@ export class TrackRow extends PureComponent {
     };
 
     render() {
-        const {rowData, index, socket} = this.props;
+        const {rowData, index } = this.props;
         return (
             <tr key={rowData.name+'_tr'}>
                 <td onClick={this.deleteCurrentTrack}>{index + 1}</td>
@@ -29,7 +29,6 @@ export class TrackRow extends PureComponent {
                       <UserCell
                           currentUser={this.props.currentUser}
                           participation={currentParticipation}
-                          socket={socket}
                           key={`${type.typeRole}_th`}
                           trackId={rowData.id}
                           type={type.typeNumber}
