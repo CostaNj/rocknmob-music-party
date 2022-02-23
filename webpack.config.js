@@ -37,6 +37,10 @@ module.exports = {
                 target: "http://localhost:3002",
                 secure: false
             },
+            "/getActiveEvent": {
+                target: "http://localhost:3002",
+                secure: false
+            },
         }
     },
     module: {

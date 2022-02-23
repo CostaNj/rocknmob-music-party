@@ -1,20 +1,28 @@
 import React from 'react'
 import {Footer} from './components'
 import './app.css';
-import logo from './res/img/header_rocknmob_music_party_acoustic_30_01_22.png'
+//import baseImageSrc from './res/img/header_rocknmob_music_party_acoustic_30_01_22.png'
+import { Loader } from "./components/Loader";
 
-const Layout = ({children}) => {
+const Layout = ({ children, imageSrc, loading }) => {
   return (
-      <div>
-          <div className='backgroundFon'>
-              <img className="headerPromoImg" src={logo}/>
-              <div className="myContainer">
+      <>
+        <div className='backgroundFon'>
+          {
+            loading ? <Loader loading={loading} type='fullscreen'/> :
+              <>
+                {
+                  imageSrc && <img className="headerPromoImg" src={imageSrc}/>
+                }
+                <div className="myContainer">
                   {children}
-              </div>
-          </div>
-          <Footer/>
-      </div>
+                </div>
+              </>
+          }
+        </div>
+        <Footer/>
+      </>
   );
 };
 
-export {Layout};
+export { Layout };

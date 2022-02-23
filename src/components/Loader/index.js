@@ -1,14 +1,15 @@
 import React from 'react'
 import {ScaleLoader} from 'react-spinners'
+import './loader.css'
 
-export const Loader = ({loading}) => {
+export const Loader = ({loading, type = 'fullscreen'}) => {
     return (
-            <div style={{ width: '100px', margin: '0 auto', }}>
-                <ScaleLoader
-                    color={'rgba(222,13,23, 0.25)'}
-                    loading={loading}
-                    width={10}
-                />
-            </div>
+      <div className={type === 'fullscreen' ? 'fullscreenLoader' : ''}>
+        <ScaleLoader
+          color={'rgba(222,13,23, 0.25)'}
+          loading={loading}
+          width={10}
+        />
+      </div>
     )
 };

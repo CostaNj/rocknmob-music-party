@@ -5,14 +5,18 @@ import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
 import axios from "axios";
 import get from 'lodash/get'
-import { Loader } from '../Loader'
+import { Layout } from '../../layout'
 
 import { getSocket, openSocketConnection, closeSocketConnection } from '../../socket'
 
 const Registration = ({ history }) => {
 
+  const socket = getSocket()
+
+  const [eventInfo, setEventInfo] = useState(null)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [eventLoading, setEventLoading] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
   const [sortType, setSortType] = useState('date')
   const [sortText, setSortText] = useState('По дате добавления')
@@ -27,6 +31,19 @@ const Registration = ({ history }) => {
     trackOfferLimit: 3,
     participationLimit: 3,
   })
+
+  useEffect(() => {
+    setLoading(eventLoading)
+    const event = axios.post('/getActiveEvent')
+      .then(function (response) {
+        console.log(response);
+        setEventInfo(response.data)
+        setEventLoading(false)
+      })
+      .catch(function (error) {
+        // console.log(error);
+      });
+  }, [])
   
   useEffect(() => {
     setLoading(true)
@@ -114,9 +131,7 @@ const Registration = ({ history }) => {
 
   return (
     <div style={{width: '100%'}}>
-      {loading ?
-        <Loader loading={loading}/>
-        :
+      <Layout imageSrc={eventInfo?.imgHeader} loading={loading || eventLoading}>
         <div className='registrationFrame'>
           <h1> Регистрация на 30 января 2022г</h1>
           <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
@@ -192,7 +207,7 @@ const Registration = ({ history }) => {
             deleteDialogResult ={deleteDialogAllResult}
           />
         </div>
-      }
+      </Layout>
     </div>
   )
 }

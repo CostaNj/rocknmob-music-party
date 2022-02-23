@@ -1,5 +1,6 @@
 export { Footer } from './Footer'
 export { Enter } from './Enter'
 export { default as Registration }  from './Registration'
+export { default as Main }  from './Main'
 export { Setlist } from './Setlist'
 export { Soon } from './Soon'
