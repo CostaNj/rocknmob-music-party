@@ -53,19 +53,19 @@ table td.trackNameCell a:before {
 }
 
 table td.reservedCell {
-    background-color: rgba(13,222,23, 0.25);
+
 }
 
 table td.unreservedCell:hover {
-    background-color: rgba(13,222,23, 0.25);
+    background-color: rgba(100,100,100, 0.25);
 }
 
 table td.myReservedCell {
-    background-color: #28a745;
+    background-color: rgba(200,200,200, 0.25);
 }
 
 table td.myReservedCell:hover {
-    background-color: rgba(240,100,100, 0.3);
+    background-color: black;
     color: transparent;
     width: 200px;
     height: 50px;

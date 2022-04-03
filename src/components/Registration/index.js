@@ -1,4 +1,6 @@
 import React, { useEffect, useState   } from 'react'
+import dayjs from 'dayjs'
+import { MetaTags } from 'react-meta-tags'
 
 import { RegistrationTable, ErrorModal, DeleteTrackModal, SortDropdown } from './parts'
 import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
@@ -18,8 +20,7 @@ const Registration = ({ history }) => {
   const [loading, setLoading] = useState(false)
   const [eventLoading, setEventLoading] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
-  const [sortType, setSortType] = useState('date')
-  const [sortText, setSortText] = useState('По дате добавления')
+  const [sortInfo, setSortInfo] = useState({type: 'date', text: 'По дате добавления'})
   const [trackTitle, setTrackTitle] = useState('')
   const [deletedRowData, setDeletedRowData] = useState(null)
   const [isShowDeleteDialog, setShowDeleteDialog] = useState(false)
@@ -34,7 +35,7 @@ const Registration = ({ history }) => {
 
   useEffect(() => {
     setLoading(eventLoading)
-    const event = axios.post('/getActiveEvent')
+    const event = axios.post('/getMainEvent')
       .then(function (response) {
         console.log(response);
         setEventInfo(response.data)
@@ -125,24 +126,24 @@ const Registration = ({ history }) => {
   };
 
   const setSort = (newSortType, newSortText) => {
-    setSortType(sortType)
-    setSortText(newSortText)
+    setSortInfo({ type: newSortType, text: newSortText})
   };
+
+  const eventDate = dayjs(eventInfo?.date).format('DD-MM-YYYY')
 
   return (
     <div style={{width: '100%'}}>
+      <MetaTags>
+        <meta
+          property="og:description"
+          content={`Rocknmob Music Party пройдет ${eventDate} в клубе ${eventInfo?.place}`}
+        />
+        <meta property="og:image" content={eventInfo?.imgLink}/>
+        <link rel="image_src" href={eventInfo?.imgLink}/>
+      </MetaTags>
       <Layout imageSrc={eventInfo?.imgHeader} loading={loading || eventLoading}>
         <div className='registrationFrame'>
-          <h1> Регистрация на 30 января 2022г</h1>
-          <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
-            Финальный порядок выступлений будет определен в день мероприятия.
-          </div>
-          <div style={{color: 'red', lineHeight: '17px', fontSize: '15px'}}>
-            Первый состав выходит на сцену в 18:00.
-          </div>
-          <div style={{color: 'red', lineHeight: '24px', fontSize: '22px', marginTop: '10px'}}>
-            НОШЕНИЕ МАСОК ОБЯЗАТЕЛЬНО ДЛЯ ВСЕХ !!
-          </div>
+          <h1> {`Регистрация на ${eventDate}`}</h1>
           <div style={{width: '100%',
             display: 'flex',
             flexDirection: 'row',
@@ -151,7 +152,7 @@ const Registration = ({ history }) => {
           >
             <div>
               <SortDropdown
-                sortText={sortText}
+                sortInfo={sortInfo}
                 setSort={setSort}
               />
             </div>
@@ -166,7 +167,8 @@ const Registration = ({ history }) => {
             data={data}
             deleteTrack = {deleteTrack}
             deleteAllTracks = {deleteAll}
-            sortType={sortType}
+            sortInfo={sortInfo}
+            partyType={eventInfo?.type}
           />
           <div className="offerSection">
             <InputGroup>

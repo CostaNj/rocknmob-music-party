@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
+import get from 'lodash/get'
 import { TrackRow } from './TrackRow'
 import {Table} from 'reactstrap'
-import {types} from '../../../constants/types'
+import { getTypes } from '../../../constants/types'
 
 export class RegistrationTable extends Component {
     render() {
-        const {data, deleteAllTracks} = this.props;
+        const {data, deleteAllTracks, partyType, sortInfo } = this.props;
 
+        const types = getTypes(partyType)
         return (
             <div className="tableResponsiveStyle">
                 <Table responsive>
@@ -19,7 +21,7 @@ export class RegistrationTable extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.getSortedData(data, this.props.sortType)
+                            this.getSortedData(data, sortInfo, types)
                                 .map((rowData, index)=>
                                     <TrackRow
                                         currentUser = {this.props.currentUser}
@@ -27,6 +29,8 @@ export class RegistrationTable extends Component {
                                         index={index}
                                         rowData={rowData}
                                         deleteTrack={this.props.deleteTrack}
+                                        types={types}
+                                        sortInfo={sortInfo}
                                     />
                                 )
                         }
@@ -36,12 +40,16 @@ export class RegistrationTable extends Component {
         );
     }
 
-    getSortedData = (data, sortType) => {
-      if(sortType === 'fullness') {
-          return data.sort(this.compareFullness);
-      }
+    getSortedData = (data, sortInfo, types) => {
 
-      return data.sort(this.compareDate);
+        if(sortInfo.type === 'setlist') {
+            return this.getSortedAndFilteredData(data, types)
+        }
+        if(sortInfo.type === 'fullness') {
+            return data.sort(this.compareFullness);
+        }
+
+        return data.sort(this.compareDate);
     };
 
 
@@ -70,4 +78,32 @@ export class RegistrationTable extends Component {
         }
         return 0;
     }
+
+    getSortedAndFilteredData = (data, types) => {
+        return data.filter(
+          (rowData) => {
+              let isDrummerExist = false;
+              let isEvenOneVocalExist = false;
+              let isEvenOneGuitarExist = false;
+              let isBassExist = false;
+
+              rowData.participations.forEach((participation) => {
+                  let currentParticipationType = get(participation, 'type', -1);
+                  if(currentParticipationType === types[0].typeNumber || currentParticipationType === types[1].typeNumber) {
+                      isEvenOneVocalExist = true;
+                  }
+                  if(currentParticipationType === types[2].typeNumber || currentParticipationType === types[3].typeNumber) {
+                      isEvenOneGuitarExist = true;
+                  }
+                  if(currentParticipationType === types[4].typeNumber) {
+                      isBassExist = true;
+                  }
+                  if (currentParticipationType === types[5].typeNumber) {
+                      isDrummerExist = true;
+                  }
+              });
+              return isEvenOneVocalExist && isEvenOneGuitarExist && isBassExist && isDrummerExist;
+          }
+        )
+    };
 }

@@ -1,17 +1,16 @@
 import React, {PureComponent} from 'react'
 import UserCell from './UserCell'
 import get from 'lodash/get'
-import {types} from '../../../constants/types'
 
 export class TrackRow extends PureComponent {
 
     deleteCurrentTrack = () => {
-        const {deleteTrack, rowData} = this.props;
+        const {deleteTrack, rowData } = this.props;
         deleteTrack(rowData);
     };
 
     render() {
-        const {rowData, index } = this.props;
+        const {rowData, index, types, sortInfo } = this.props;
         return (
             <tr key={rowData.name+'_tr'}>
                 <td onClick={this.deleteCurrentTrack}>{index + 1}</td>
@@ -32,6 +31,7 @@ export class TrackRow extends PureComponent {
                           key={`${type.typeRole}_th`}
                           trackId={rowData.id}
                           type={type.typeNumber}
+                          sortInfo={sortInfo}
                       />)
                 })}
             </tr>

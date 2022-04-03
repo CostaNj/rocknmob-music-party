@@ -1,4 +1,4 @@
-export const types = [
+export const getTypes = (type) => [
     {
         typeNumber: 0,
         typeRole: 'vocal1',
@@ -12,12 +12,12 @@ export const types = [
     {
         typeNumber: 2,
         typeRole: 'guitar1',
-        typeHeader: 'Акустика'
+        typeHeader: type === 'acoustic' ? 'Акустика' : 'Гитара 1'
     },
     {
         typeNumber: 3,
         typeRole: 'guitar2',
-        typeHeader: 'Акустика/Соло'
+        typeHeader: type === 'acoustic' ? 'Акустика/Соло' : 'Гитара 2'
     },
     {
         typeNumber: 4,
@@ -27,11 +27,11 @@ export const types = [
     {
         typeNumber: 5,
         typeRole: 'drums',
-        typeHeader: 'Ударные/Перкуссия'
+        typeHeader: type === 'acoustic' ? 'Ударные/Перкуссия' : 'Ударные'
     },
     {
         typeNumber: 6,
         typeRole: 'piano',
-        typeHeader: 'Клавиши/Другое'
+        typeHeader: type === 'acoustic' ? 'Клавиши/Другое' : 'Клавиши'
     }
 ];
