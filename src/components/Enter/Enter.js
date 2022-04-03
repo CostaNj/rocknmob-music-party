@@ -21,11 +21,11 @@ class Enter extends Component{
 
     render() {
              return(
-            <div style={{width: '100%'}}>
+            <div className='login-container'>
                 {this.state.loading ?
                     <Loader loading={this.state.loading}/>
                     :
-                    <div className='loginFrame'>
+                    <div className='login-frame'>
                         <div className="rules">
                             <h3> ПРАВИЛА УЧАСТИЯ </h3>
                             <p>
