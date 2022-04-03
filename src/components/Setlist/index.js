@@ -1,1 +1,0 @@
-export {SetlistWithRouter as Setlist} from './Setlist'
