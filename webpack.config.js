@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
         //в браузере будет dist/main.js
-        publicPath: '/jam/dist/'
+        publicPath: '/dist/'
     },
     devServer: {
         host: 'localhost',
@@ -37,7 +37,7 @@ module.exports = {
                 target: "http://localhost:3002",
                 secure: false
             },
-            "/getActiveEvent": {
+            "/getMainEvent": {
                 target: "http://localhost:3002",
                 secure: false
             },
