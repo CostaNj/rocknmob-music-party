@@ -1,16 +1,31 @@
-.registrationFrame {
+.registration-container {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
 }
 
+.registration-container-title {
+    margin: 0 auto 15px;
+}
+
+.registration-menu {
+    width: 90%;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registration-menu-btn {
+    margin-bottom: 15px;
+}
+
 .tableResponsiveStyle {
     width: 100%;
     color: white;
 }
-
-
 
 table th, table td {
     vertical-align: middle !important;
@@ -93,4 +108,23 @@ table td.myReservedCell:hover:before {
     flex-direction: row;
     justify-content: center;
     align-content: center;
+}
+
+@media (max-width: 480px) {
+    .registration-container-title h1 {
+        font-size: 1.5em;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 1024px)  {
+    .registration-container-title h1 {
+        font-size: 2em;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .registration-container-title h1 {
+        font-size: 2.5em;
+    }
 }

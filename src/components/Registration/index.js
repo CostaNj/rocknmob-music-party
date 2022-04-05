@@ -35,11 +35,15 @@ const Registration = ({ history }) => {
 
   useEffect(() => {
     setLoading(eventLoading)
-    const event = axios.post('/getMainEvent')
+    const event = axios.get('/getMainEvent')
       .then(function (response) {
         console.log(response);
-        setEventInfo(response.data)
-        setEventLoading(false)
+        if(response?.data?.state !== 'active' && response?.data?.state !== 'fill') {
+          history.push('/soon');
+        } else {
+          setEventInfo(response.data)
+          setEventLoading(false)
+        }
       })
       .catch(function (error) {
         // console.log(error);
@@ -52,7 +56,7 @@ const Registration = ({ history }) => {
       .then(function (response) {
         //console.log(response);
         if(response.data === '') {
-          history.push('/jam');
+          history.push('/enter');
         } else {
           setCurrentUser(response.data);
           setLoading(false)
@@ -142,26 +146,23 @@ const Registration = ({ history }) => {
         <link rel="image_src" href={eventInfo?.imgLink}/>
       </MetaTags>
       <Layout imageSrc={eventInfo?.imgHeader} loading={loading || eventLoading}>
-        <div className='registrationFrame'>
-          <h1> {`Регистрация на ${eventDate}`}</h1>
-          <div style={{width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'}}
-          >
-            <div>
-              <SortDropdown
-                sortInfo={sortInfo}
-                setSort={setSort}
-              />
-            </div>
+        <div className='registration-container'>
+          <div className='registration-menu'>
+            <a style={{textDecoration: 'none', color: 'white'}} href='/'>На главную</a>
             <div>
               <img src={currentUser?.photos[0]?.value} style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}/>
               <a style={{textDecoration: 'none', color: 'white'}} href='/logout'>Выйти</a>
             </div>
           </div>
-
+          <div className='registration-container-title'>
+            <h1> {`Регистрация на ${eventDate}`}</h1>
+          </div>
+          <div className='registration-menu-btn'>
+            <SortDropdown
+              sortInfo={sortInfo}
+              setSort={setSort}
+            />
+          </div>
           <RegistrationTable
             currentUser={currentUser}
             data={data}

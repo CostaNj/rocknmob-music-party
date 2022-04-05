@@ -26,7 +26,6 @@ export const SortDropdown = ({ setSort, sortInfo }) =>  {
             isOpen={dropdownOpen}
             style={{margin:'3px'}}
             toggle={toggle}
-            size="sm"
         >
             <DropdownToggle caret>
                 {sortInfo?.text}

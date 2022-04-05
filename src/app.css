@@ -9,7 +9,6 @@ body {
     height: auto;
     width: 100%;
     min-width: 300px;
-    margin-bottom: 30px;
 }
 
 .backgroundFon {
@@ -18,7 +17,6 @@ body {
 }
 
 .myContainer {
-    padding-top: 40px;
     padding-bottom: 40px;
     width: 80%;
     margin: 0 auto;
