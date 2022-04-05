@@ -12,7 +12,7 @@ const Main = ({ history }) => {
 
   useEffect(() => {
     setLoading(true)
-    const events = axios.post('/getMainEvent')
+    const events = axios.get('/getMainEvent')
       .then(function (response) {
         console.log(response)
         setMainEvent(response.data)
@@ -25,46 +25,61 @@ const Main = ({ history }) => {
   }, [])
 
   const handleClick = useCallback(() => {
-    history.push('/jam/registration')
-  }, [])
+    if(mainEvent?.state !== 'active' && mainEvent?.state !== 'fill') {
+      history.push('/soon');
+    } else {
+      history.push('/registration')
+    }
+  }, [mainEvent])
 
   if(loading) {
     return <Loader type="fullscreen"/>
   }
 
   return (
-    <div className='main-page'>
-      <div className='main-menu'>
-      </div>
-      <div className='main-container'>
-        <div className='title-container'>
-          <div className='main-title'>
-            ROCKNMOB MUSIC PARTY
-          </div>
-          <div className='second-title'>
-            Приходи и оторвись вместе с нами!
-          </div>
-          <div className='description'>
-            Импровизированные музыкальные составы.<br/>
-            Огненный сет-лист. Бесконечный драйв!<br/>
-            Пой и играй любимые треки!<br/>
-          </div>
-          <div className='register-button-container'>
-            <button className='register-button' onClick={handleClick}>Зарегистрироваться</button>
-          </div>
+    <>
+      <div className='main-page'>
+        <div className='main-menu'>
         </div>
-        <div className='main-border'/>
-        <div className='events-container'>
-          <div className='events-title'>
-            Ближайшее мероприятие
+        <div className='main-container'>
+          <div className='title-container'>
+            <div className='main-title'>
+              ROCKNMOB MUSIC PARTY
+            </div>
+            <div className='second-title'>
+              Приходи и оторвись вместе с нами!
+            </div>
+            <div className='description'>
+              Импровизированные музыкальные составы.<br/>
+              Огненный сет-лист. Бесконечный драйв!<br/>
+              Пой и играй любимые треки!<br/>
+            </div>
+            <div className='register-button-container'>
+              <button className='register-button' onClick={handleClick}>Зарегистрироваться</button>
+            </div>
           </div>
-          <div>
-            <Event eventInfo={mainEvent}/>
-          </div>
+          {
+            mainEvent?.state !== 'close' && (
+              <>
+                <div className='main-border'/>
+                <div className='events-container'>
+                  <div className='events-title'>
+                    Ближайшее мероприятие
+                  </div>
+                  <div>
+                    <Event eventInfo={mainEvent}/>
+                  </div>
+                </div>
+              </>
+            )
+          }
         </div>
       </div>
-      <Footer/>
-    </div>
+      <div className={mainEvent?.state === 'close' ? 'footer-container' : ''}>
+        <Footer/>
+      </div>
+
+    </>
   )
 }
 

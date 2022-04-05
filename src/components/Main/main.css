@@ -75,13 +75,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .events-title {
     font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 40px;
+}
+
+.footer-container {
+    margin-top: -180px;
 }
 
 
@@ -101,7 +104,6 @@
 
     .second-title {
         font-size: 1em;
-        font-weight: bold;
         margin-bottom: 10px;
     }
 
@@ -127,6 +129,17 @@
 
     .title-container {
         max-width: 80%;
+    }
+
+    .main-title {
+        font-size: 3em;
+        font-weight: bold;
+    }
+
+    .second-title {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 20px;
     }
 
     .events-container {
