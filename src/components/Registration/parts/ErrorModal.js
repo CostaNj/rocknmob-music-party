@@ -9,7 +9,7 @@ export const ErrorModal = ({isOpen, errorMessage, errorType, closeErrorDialog, t
         <Modal isOpen = {isOpen} centered>
             <ModalHeader toggle={closeErrorDialog}>
                 <div style={{width: '100%', textAlign: 'center', color: 'red', fontSize: '20px'}}>
-                    Ошибка.&nbsp;{errorMessage}
+                    {errorMessage}
                 </div>
             </ModalHeader>
             <ModalBody>

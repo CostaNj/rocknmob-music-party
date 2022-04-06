@@ -20,6 +20,8 @@
 
 .registration-menu-btn {
     margin-bottom: 15px;
+    color: white;
+    font-size: 1em;
 }
 
 .tableResponsiveStyle {
@@ -68,7 +70,7 @@ table td.trackNameCell a:before {
 }
 
 table td.reservedCell {
-
+    background-color: rgba(13,222,23, 0.25);
 }
 
 table td.unreservedCell:hover {
@@ -76,28 +78,25 @@ table td.unreservedCell:hover {
 }
 
 table td.myReservedCell {
-    background-color: rgba(200,200,200, 0.25);
+    background-color: #28a745;
 }
 
-table td.myReservedCell:hover {
-    background-color: black;
-    color: transparent;
-    width: 200px;
-    height: 50px;
-}
+/*table td.myReservedCell:hover {*/
+/*    background-color: black;*/
+/*    color: transparent;*/
+/*    width: 200px;*/
+/*}*/
 
-table td.myReservedCell:hover .cellFioText {
-    display: none;
-}
+/*table td.myReservedCell:hover .cellFioText {*/
+/*    display: none;*/
+/*}*/
 
 
-table td.myReservedCell:hover:before {
-    color: whitesmoke;
-    content: "Отменить";
-    width: 200px;
-    height: 50px;
-    line-height: 35px;
-}
+/*table td.myReservedCell:hover:before {*/
+/*    color: whitesmoke;*/
+/*    content: "Отменить";*/
+/*    width: 200px;*/
+/*}*/
 
 
 .offerSection {

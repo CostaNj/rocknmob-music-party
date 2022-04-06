@@ -5,10 +5,6 @@ import './soon.css'
 
 export const Soon = () => {
 
-  const handlePause = () => {
-    console.log('test')
-  }
-
   const opts = {
     width: '100%',
     height: '100%',
@@ -29,7 +25,7 @@ export const Soon = () => {
           На данный момент нет активных мероприятий, перейти на&nbsp;<a href='/'>главную</a>
         </div>
       </div>
-      <YouTube videoId="Mof2D9bB5uU" opts={opts} containerClassName='soon-video' onPause={handlePause}  title='test' />
+      <YouTube videoId="Mof2D9bB5uU" opts={opts} containerClassName='soon-video' />
     </div>
   );
 }

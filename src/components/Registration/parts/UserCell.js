@@ -1,33 +1,37 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import get from 'lodash/get'
 import { getSocket } from "../../../socket";
 
-const UserCell = ({ participation, trackId, type, currentUser, sortInfo}) => {
+const UserCell = ({ participation, trackId, type, currentUser, sortType, view = 'text'}) => {
 
     const socket = getSocket()
 
-    const click = () => {
-        if(sortInfo?.type !== 'setlist') {
+    const click = useCallback(() => {
+        if(sortType !== 'setlist') {
             let currentCellUid = get(participation, 'user.uid', '');
             let isMyParticipation = currentUser.id.toString() === currentCellUid.toString();
             participation ?
               (isMyParticipation ? socket.emit('deleteParticipation', participation.id) : null) :
               socket.emit('takePart', {partytrackId: trackId, type});
         }
-    }
+    }, [sortType, participation, trackId, type, currentUser])
 
     let currentCellUid = get(participation, 'user.uid', '');
     let isMyParticipation = currentUser.id.toString() === currentCellUid.toString();
     let fio = get(participation, 'user.fio', '');
     let photo = get(participation, 'user.img', '');
+    const reservedCellClass =  view === 'text' && sortType !== 'setlist' ? 'reservedCell' : ''
+    const ownerCellClass = isMyParticipation ? 'myReservedCell' : reservedCellClass
+    const currentCellStatusClass = participation ? ownerCellClass : "unreservedCell"
+
     return (
         <td onClick={click}
-            className={participation ? (isMyParticipation ? "myReservedCell" : "reservedCell") : "unreservedCell"}>
+            className={currentCellStatusClass}>
             {participation ?
                 (isMyParticipation ?
                   <div className='cellFioText'>
                       {
-                          sortInfo?.type === 'setlist' ? fio :
+                          sortType === 'setlist' || view === 'text' ? fio :
                             <img
                               src={photo}
                               style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}
@@ -38,7 +42,7 @@ const UserCell = ({ participation, trackId, type, currentUser, sortInfo}) => {
                   </div> :
                   <a href={`https://vk.com/id${currentCellUid}`} target="_blank">
                       {
-                          sortInfo?.type === 'setlist' ? fio :
+                          sortType === 'setlist' || view === 'text' ? fio :
                             <img
                               src={photo}
                               style={{borderRadius: '26px', margin: '5px', width: '37px', height: '37px'}}

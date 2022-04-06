@@ -2,12 +2,13 @@ import React, { useEffect, useState   } from 'react'
 import dayjs from 'dayjs'
 import { MetaTags } from 'react-meta-tags'
 
-import { RegistrationTable, ErrorModal, DeleteTrackModal, SortDropdown } from './parts'
+import { RegistrationTable, ErrorModal, DeleteTrackModal } from './parts'
 import {InputGroup, Input, InputGroupAddon, Button} from 'reactstrap'
 import './registration.css'
 import axios from "axios";
 import get from 'lodash/get'
 import { Layout } from '../../layout'
+import { Dropdown } from '../Dropdown'
 
 import { getSocket, openSocketConnection, closeSocketConnection } from '../../socket'
 
@@ -15,12 +16,24 @@ const Registration = ({ history }) => {
 
   const socket = getSocket()
 
+  const views = [
+    {label: 'Текст', value: 'text'},
+    {label: 'Аватарка', value: 'avatar'}
+  ]
+
+  const sorts = [
+    {type: 'date', label: 'По дате добавления'},
+    {type: 'fullness', label: 'По заполненности'},
+    {type: 'setlist', label: 'Сетлист'}
+  ]
+
   const [eventInfo, setEventInfo] = useState(null)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [eventLoading, setEventLoading] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
-  const [sortInfo, setSortInfo] = useState({type: 'date', text: 'По дате добавления'})
+  const [sortInfo, setSortInfo] = useState(sorts[0])
+  const [view, setView] = useState(views[0])
   const [trackTitle, setTrackTitle] = useState('')
   const [deletedRowData, setDeletedRowData] = useState(null)
   const [isShowDeleteDialog, setShowDeleteDialog] = useState(false)
@@ -129,9 +142,13 @@ const Registration = ({ history }) => {
     setShowDeleteAllDialog(false)
   };
 
-  const setSort = (newSortType, newSortText) => {
-    setSortInfo({ type: newSortType, text: newSortText})
-  };
+  const handleSortClick = (newSort) => {
+    setSortInfo(newSort)
+  }
+
+  const handleViewClick = (newView) => {
+    setView(newView)
+  }
 
   const eventDate = dayjs(eventInfo?.date).format('DD-MM-YYYY')
 
@@ -158,9 +175,17 @@ const Registration = ({ history }) => {
             <h1> {`Регистрация на ${eventDate}`}</h1>
           </div>
           <div className='registration-menu-btn'>
-            <SortDropdown
-              sortInfo={sortInfo}
-              setSort={setSort}
+            Сортировка&nbsp;
+            <Dropdown
+              activeItem={sortInfo}
+              list={sorts}
+              onClick={handleSortClick}
+            />
+            &nbsp;Вид ячеек&nbsp;
+            <Dropdown
+              activeItem={view}
+              list={views}
+              onClick={handleViewClick}
             />
           </div>
           <RegistrationTable
@@ -168,8 +193,9 @@ const Registration = ({ history }) => {
             data={data}
             deleteTrack = {deleteTrack}
             deleteAllTracks = {deleteAll}
-            sortInfo={sortInfo}
+            sortType={sortInfo.type}
             partyType={eventInfo?.type}
+            view={view.value}
           />
           <div className="offerSection">
             <InputGroup>
