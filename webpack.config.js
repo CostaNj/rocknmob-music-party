@@ -1,5 +1,6 @@
 let path = require('path');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 let webpack = require('webpack');
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
         //в браузере будет dist/main.js
-        publicPath: 'dist/'
+        publicPath: '/dist/'
     },
     devServer: {
         host: 'localhost',
@@ -22,13 +23,25 @@ module.exports = {
         historyApiFallback: true,
         //задает папку из которой брать статику (по умолчанию из текущей)
         //contentBase: path.resolve(__dirname, './dist'),
-        //все пути, которые не найдены у нас направлялись на порт 3001
-        // proxy: {
-        //     "*": {
-        //         target: "http://localhost:3001",
-        //         secure: false
-        //     }
-        // }
+        //все пути, которые не найдены у нас направлялись на порт 3002
+        proxy: {
+            "/auth/vk": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+            "/getSession": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+            "/logout": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+            "/getMainEvent": {
+                target: "http://localhost:3002",
+                secure: false
+            },
+        }
     },
     module: {
         rules: [
@@ -61,7 +74,9 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('style.css'),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new UglifyJsPlugin()
     ],
+
     devtool: process.argv.indexOf('production') !== -1 ? 'source-map' : 'eval-source-map'
 };

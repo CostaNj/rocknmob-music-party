@@ -1,0 +1,129 @@
+.registration-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.registration-container-title {
+    margin: 0 auto 15px;
+}
+
+.registration-menu {
+    width: 90%;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registration-menu-btn {
+    margin-bottom: 15px;
+    color: white;
+    font-size: 1em;
+}
+
+.tableResponsiveStyle {
+    width: 100%;
+    color: white;
+}
+
+table th, table td {
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 12px;
+    width: 200px;
+    height: 50px;
+}
+
+table td a {
+    color: white;
+    text-decoration: none;
+}
+
+table td a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+table td:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+
+table td.trackNameCell {
+    min-width: 170px;
+    border-right: #FFFFFF 1px solid;
+    border-left: rgba(255, 255, 255, 0.2) 1px solid;
+}
+
+table td.trackNameCell a:before {
+    content: "you";
+    color: transparent;
+    display: inline-block;
+    vertical-align: middle !important;
+    text-align: center !important;
+    background: transparent url("./img/youtube.png") no-repeat center center;
+    background-size: 100%;
+}
+
+table td.reservedCell {
+    background-color: rgba(13,222,23, 0.25);
+}
+
+table td.unreservedCell:hover {
+    background-color: rgba(100,100,100, 0.25);
+}
+
+table td.myReservedCell {
+    background-color: #28a745;
+}
+
+/*table td.myReservedCell:hover {*/
+/*    background-color: black;*/
+/*    color: transparent;*/
+/*    width: 200px;*/
+/*}*/
+
+/*table td.myReservedCell:hover .cellFioText {*/
+/*    display: none;*/
+/*}*/
+
+
+/*table td.myReservedCell:hover:before {*/
+/*    color: whitesmoke;*/
+/*    content: "Отменить";*/
+/*    width: 200px;*/
+/*}*/
+
+
+.offerSection {
+    margin: 10px 0;
+    width: 50%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+@media (max-width: 480px) {
+    .registration-container-title h1 {
+        font-size: 1.5em;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 1024px)  {
+    .registration-container-title h1 {
+        font-size: 2em;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .registration-container-title h1 {
+        font-size: 2.5em;
+    }
+}
